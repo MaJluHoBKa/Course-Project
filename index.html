@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SrtuctVisual</title>
+
+    <link rel="stylesheet" href="/src/css/main.css">
+    <link rel="stylesheet" href="/src/css/apex.css">
+    <link rel="stylesheet" href="/src/css/button.css">
+    <link rel="stylesheet" href="/src/css/context.css">
+    <link rel="stylesheet" href="/src/css/login.css">
+    <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/overcast/jquery-ui.css" />
+
+    <script src="/leader-line/leader-line.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+    <script src="/node_modules/d3/dist/d3.min.js"></script>
+    <script src="/src/JavaScript/scripts.js"></script>
+    <script src="/src/JavaScript/leader-line.js"></script>
+    <script src="/src/JavaScript/select-apex.js"></script>
+    <script src="/src/JavaScript/context-menu.js"></script>
+    <script src="/src/JavaScript/server/login.js"></script>
+    <script src="/src/JavaScript/server/save-load.js"></script>
+</head>
+
+<body>
+    <div class = "desk" id="desk-apex">
+        <script src="/src/JavaScript/drag-element.js"></script>
+    </div> 
+
+    <a id="login-undefined">Log in to your account. You will not be able to save the created structures.</a>
+
+    <input id="input" type="text" placeholder="Enter data here...">
+
+    <div class="mainMenu">
+        <ul class="mainMenuList">
+            <li class="mainItemMenu">
+                <button class="button" id="button-add">
+                    <i class="add-icon fa fa-plus" id="add-icon"></i>
+                    <i class="arrow-icon-main fa fa-caret-right" id="arrow-add-main"></i>
+                </button>
+                <ul class="subMainMenu" id="addMenu">
+                    <li class="mainItemMenu">
+                        <button class="button" id="default-node">
+                            <a>DEFAULT</a>
+                        </button>
+                    </li>
+                    <li class="mainItemMenu">
+                        <button class="button" id="square-node">
+                            <i class="fa fa-square" id="square-node-icon"></i>
+                        </button>
+                    </li>
+                    <li class="mainItemMenu">
+                        <button class="button" id="circ-node">
+                            <i class="fa fa-circle" id="circle-node-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </li>
+            <li class="mainItemMenu">
+                <button class="button" id="button-swap">
+                    <i class="swap-icon fa fa-refresh" id="swap-icon"></i>
+                </button>
+            </li>
+            <li class="mainItemMenu">
+                <button class="button" id="button-link">
+                    <i class="link-icon fa fa-link" id="link-icon"></i>
+                    <i class="arrow-icon-main fa fa-caret-right" id="arrow-link-main"></i>
+                </button>
+                <ul class="subMainMenu" id="linkMenu">
+                    <li class="mainItemMenu">
+                        <button class="button" id="default-link">
+                            <i class="fa fa-long-arrow-right"></i>
+                        </button>
+                    </li>
+                    <li class="mainItemMenu">
+                        <button class="button" id="arrows-link">
+                            <i class="fa fa-arrows-h"></i>
+                        </button>
+                    </li>
+                    <li class="mainItemMenu">
+                        <button class="button" id="minus-link">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </li>
+                    <li class="mainItemMenu">
+                        <button class="button" id="ellipsis-link">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                    </li>
+                </ul>
+            </li>
+            <li class="mainItemMenu">
+                <button class="button" id="button-delete-all">
+                    <i class="delete-all-icon fa fa-trash" id="delete-all-icon"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <button class="button-control" id="button-hide">
+        <i class="eye-icon fa fa-eye fa-2x" id="eye"></i>
+    </button>
+    <button class="button-account">
+        <a id="username-show">Log in</a>
+    </button>
+
+    <div class = "contextMenu">
+        <ul class="menuList">
+            <li class="itemMenu">
+                <button class="contextButton" id="colour">
+                    <i class="tint-icon-menu fa fa-tint"></i>
+                    <a>COLOR</a>
+                    <i class="arrow-icon fa fa-caret-right" id="colourIcon"></i>
+                </button>
+                <ul class="subMenu" id="colourMenu">
+                    <li class="itemMenu">
+                        <button class="contextButton" id="redButton">
+                            <i class="tint-icon fa fa-tint" id="red-icon"></i>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="pinkButton">
+                            <i class="tint-icon fa fa-tint" id="pink-icon"></i>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="purpleButton">
+                            <i class="tint-icon fa fa-tint" id="purple-icon"></i>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="blueButton">
+                            <i class="tint-icon fa fa-tint" id="blue-icon"></i>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="turquoiseButton">
+                            <i class="tint-icon fa fa-tint" id="turquoise-icon"></i>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="greenButton">
+                            <i class="tint-icon fa fa-tint" id="green-icon"></i>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="yellowButton">
+                            <i class="tint-icon fa fa-tint" id="yellow-icon"></i>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="orangeButton">
+                            <i class="tint-icon fa fa-tint" id="orange-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </li>
+            <li class="itemMenu">
+                <button class="contextButton" id="edit">
+                    <i class="edit-icon fa fa-edit"></i>
+                    <a>EDIT</a> 
+                </button>
+                <ul class="subMenu-edit">
+                    <li class="itemMenu-edit">
+                        <textarea id="input-edit" rows="4" cols="50"></textarea>
+                    </li>
+                    <ul class="edit-button">
+                        <li class="itemMenu-edit">
+                            <button class="contextButton" id="OK-edit">
+                                <a>OK</a>
+                            </button>
+                        </li>
+                        <li class="itemMenu-edit">
+                            <button class="contextButton" id="CANCEL-edit">
+                                <a>CANCEL</a>
+                            </button>
+                        </li>
+                    </ul>
+                </ul>
+            </li>
+            <li class="itemMenu">
+                <button class="contextButton" id="add-node">
+                    <i class="plus-icon fa fa-plus-square"></i>
+                    <a>NODE</a>
+                    <i class="arrow-icon fa fa-caret-right" id="figureIcon"></i>
+                </button>
+                <ul class="subMenu-figure" id="figureMenu">
+                    <li class="itemMenu">
+                        <button class="contextButton" id="default-figure">
+                            <a>DEFAULT</a>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="square">
+                            <i class="tint-icon fa fa-square" id="square-icon"></i>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="circ">
+                            <i class="tint-icon fa fa-circle" id="circle-icon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </li>
+            <li class="itemMenu">
+                <button class="contextButton" id="add-field">
+                    <i class="plus-icon fa fa-plus-square"></i>
+                    <a>FIELD</a>
+                </button>
+            </li>
+            <li class="itemMenu">
+                <button class="contextButton" id="style-field">
+                    <i class="bars-icon fa fa-bars"></i>
+                    <a>STYLE</a>
+                    <i class="arrow-icon fa fa-caret-right" id="styleIcon"></i>
+                </button>
+                <ul class="subMenuStyle" id="styleMenu">
+                    <li class="itemMenu">
+                        <button class="contextButton" id="array-type">
+                            <a>ARRAY</a>
+                        </button>
+                    </li>
+                    <li class="itemMenu">
+                        <button class="contextButton" id="list-type">
+                            <a>LIST</a>
+                        </button>
+                    </li>
+                </ul>
+            </li>
+            <li class="itemMenu">
+                <button class="contextButton" id="delete-apex">
+                    <i class="trash-icon fa fa-trash"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="login">
+        <a id="info-login">LOGIN</a>
+        <a id="username-text">Username:</a>
+        <a id="password-text">Password:</a>
+        <a id="username-lenght-error">Username must contain at least 3 characters...</a>
+        <a id="password-lenght-error">Password must contain at least 8 characters...</a>
+        <input id="username-login">
+        <input id="password-login" type="password">
+        <button id="button-login">
+            <a>LOG IN</a>
+        </button>
+        <button id="button-signup">
+            <a>SIGN UP</a>
+        </button>
+        <button id="button-close">
+            <i class="fa fa-times fa-2x"></i>
+        </button>
+
+        <div class="pop-up" id="exist-user">
+            <a>This username is already taken...</a>
+            <button class="button-pop-up" id="button-exist-ok">
+                <a>OK</a>
+            </button>
+        </div>
+        <div class="pop-up" id="error-password">
+            <a>Invalid login or password...</a>
+            <button class="button-pop-up" id="button-error-password-ok">
+                <a>OK</a>
+            </button>
+        </div>
+        <div class="pop-up" id="login-successful">
+            <a>Login successful!</a>
+            <button class="button-pop-up" id="button-login-successful-ok">
+                <a>OK</a>
+            </button>
+        </div>
+        <div class="pop-up" id="signup-successful">
+            <a>Registration successful!</a>
+            <button class="button-pop-up" id="button-signup-successful-ok">
+                <a>OK</a>
+            </button>
+        </div>
+    </div>
+    <div class="account">
+        <a id="username-account"></a>
+        <button id="button-close-account">
+            <i class="fa fa-times fa-2x"></i>
+        </button>
+        <button class="button-save">
+            <a>SAVE</a>
+        </button>
+        <button class="button-load">
+            <a>LOAD</a>
+        </button>
+        <button class="button-sign-out">
+            <a>SIGN OUT</a>
+        </button>
+        <div class="name-structure">
+            <a id="name-structure-text">Enter a structure name:</a>
+            <input id="name-structure-input" type="text", placeholder="...">
+            <button id="button-name-structure-ok">
+                <a>OK</a>
+            </button>
+            <button id="button-name-structure-cancel">
+                <a>CANCEL</a>
+            </button>
+            <div class="pop-up" id="save-successful">
+                <a>Save successful!</a>
+                <button class="button-pop-up" id="button-save-successful-ok">
+                    <a>OK</a>
+                </button>
+            </div>
+        </div>
+        <div class="load-structure">
+            <a id="load-structure-text">Saved structures:</a>
+            <div class="load-window">
+                <ul class="loadList">
+                </ul>
+            </div>
+            <button id="button-load-structure">
+                <a>LOAD</a>
+            </button>
+            <button id="button-load-structure-cancel">
+                <a>CANCEL</a>
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>

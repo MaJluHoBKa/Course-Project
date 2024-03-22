@@ -1,0 +1,94 @@
+.button {
+    z-index: 1000;
+    display: flex;
+    border: 0;
+    height: 50px;
+    width: 100px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: .8em;
+    letter-spacing: 1.5px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: black;
+    transition: all 0.3s ease-out;
+    transition: transform 0.5s;
+}
+.button i{
+    color: #b4b4b4;
+    transition: all 0.3s ease-out;
+}
+.button:hover i{
+    color: #30d5c8;
+}
+.button a{
+    position: absolute;
+    transition: all 0.3s ease-Out;
+    color: #b4b4b4;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: monospace;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+.button:hover a{
+    color: #30d5c8;
+}
+.button:active{
+    background-color: #0e0e0e;
+}
+
+#button-add{
+    border-radius: 5px 5px 0 0;
+}
+#button-delete-all{
+    border-radius: 0 0 5px 5px;
+}
+#default-node{
+    border-radius: 5px 5px 0 0;
+}
+#circ-node{
+    border-radius: 0 0 5px 5px;
+}
+
+.arrow-icon-main{
+    transition: all 0.3s ease;
+    position: absolute;
+    right: 5px;
+    color:#b4b4b4;
+}
+
+#default-link{
+    border-radius: 5px 5px 0 0;
+}
+#ellipsis-link{
+    border-radius: 0 0 5px 5px;
+}
+
+.button-control{
+    z-index: 1000;
+    position: absolute;
+    display: flex;
+    height: 50px;
+    width: 50px;
+    color: #30d5c8;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    border-radius: 50%;
+    border: 0;
+    box-shadow: 0px 0px 5px black;
+    transition: all 0.5s ease-out;
+}
+.eye-icon{
+    transition: all 0.5s ease-Out;
+    color: #b4b4b4;
+}
+.button-control:hover .eye-icon{
+    color: #30d5c8;
+}
+#button-hide{
+    top: 50px;
+    right: 10px;
+}
