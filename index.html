@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SrtuctVisual</title>
-
-    <link rel="stylesheet" href="/src/css/main.css">
-    <link rel="stylesheet" href="/src/css/apex.css">
-    <link rel="stylesheet" href="/src/css/button.css">
-    <link rel="stylesheet" href="/src/css/context.css">
-    <link rel="stylesheet" href="/src/css/login.css">
+    <title>DataShape</title>
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <link rel="stylesheet" href="/src/styles/apex.css">
+    <link rel="stylesheet" href="/src/styles/button.css">
+    <link rel="stylesheet" href="/src/styles/context.css">
+    <link rel="stylesheet" href="/src/styles/login.css">
     <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/overcast/jquery-ui.css" />
 
@@ -18,18 +17,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
     <script src="/node_modules/d3/dist/d3.min.js"></script>
-    <script src="/src/JavaScript/scripts.js"></script>
-    <script src="/src/JavaScript/leader-line.js"></script>
-    <script src="/src/JavaScript/select-apex.js"></script>
-    <script src="/src/JavaScript/context-menu.js"></script>
-    <script src="/src/JavaScript/server/login.js"></script>
-    <script src="/src/JavaScript/server/save-load.js"></script>
+    <script src="/src/scripts/scripts.js"></script>
+    <script src="/src/scripts/leader-line.js"></script>
+    <script src="/src/scripts/select-apex.js"></script>
+    <script src="/src/scripts/context-menu.js"></script>
+    <script src="/src/scripts/server/login.js"></script>
+    <script src="/src/scripts/server/save-load.js"></script>
 </head>
 
 <body>
     <div class = "desk" id="desk-apex">
-        <script src="/src/JavaScript/drag-element.js"></script>
-    </div> 
+        <script src="/src/scripts/drag-element.js"></script>
+    </div>
 
     <a id="login-undefined">Log in to your account. You will not be able to save the created structures.</a>
 
@@ -305,6 +304,15 @@
             <button id="button-name-structure-cancel">
                 <a>CANCEL</a>
             </button>
+            <div class="pop-up" id="save-exists">
+                <a>A structure with that name already exists...</a>
+                <button class="button-pop-up" id="replace-save">
+                    <a>REPLACE</a>
+                </button>
+                <button class="button-pop-up" id="cancel-save">
+                    <a>CANCEL</a>
+                </button>
+            </div>
             <div class="pop-up" id="save-successful">
                 <a>Save successful!</a>
                 <button class="button-pop-up" id="button-save-successful-ok">

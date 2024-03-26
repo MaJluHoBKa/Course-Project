@@ -721,46 +721,6 @@ function swapApex(){
         });
     }
 
-    // var firstChild = firstApex.children();
-    // var secondChild = secondApex.children();
-
-    // var firstColor = firstApex.css('border-color');
-    // var secondColor = secondApex.css('border-color');
-    // var firsrBorder = firstApex.css('border-radius');
-    // var secondBorder = secondApex.css('border-radius');
-
-    // secondChild.appendTo(firstApex);
-    // firstChild.appendTo(secondApex);
-
-    // firstApex.css('border-color', secondColor);
-    // firstApex.css('border-radius', secondBorder);
-    // firstApex.hover(
-    //     function(){
-    //         firstApex.css('box-shadow', "0px 0px 10px " + secondColor);
-    //     },
-    //     function() {
-    //         firstApex.css("box-shadow", "none");
-    //     }
-    // );
-    // secondApex.css('border-color', firstColor);
-    // secondApex.css('border-radius', firsrBorder);
-    // secondApex.hover(
-    //     function(){
-    //         secondApex.css('box-shadow', "0px 0px 10px " + firstColor);
-    //     },
-    //     function() {
-    //         secondApex.css("box-shadow", "none");
-    //     }
-    // );
-
-    // var originalWidthFirstApex = firstApex.outerWidth();
-    // var originalHeightFirstApex = firstApex.outerHeight();
-    // var originalWidthSecondApex = secondApex.outerWidth();
-    // var originalHeightSecondApex = secondApex.outerHeight();
-
-    // firstApex.css({"width": originalWidthSecondApex + "px", "height": originalHeightSecondApex + "px"});
-    // secondApex.css({"width": originalWidthFirstApex + "px", "height": originalHeightFirstApex + "px"});
-
     $('.apex-add').css("opacity", "1");
     isSelectionEnabled = false;
     selectedApex.length = 0;

@@ -763,6 +763,16 @@
     cursor: default;
 }
 
+#replace-save{
+    width: 75px;
+    left: 15%;
+}
+#cancel-save{
+    width: 75px;
+    left: 55%;
+}
+
+
 div::-webkit-scrollbar {
     width: 10px;
     background-color: #1b1b1b;

@@ -21,70 +21,89 @@ $(document).ready(function() {
     $('.button-save').on('click', async function(){
       $(".name-structure").fadeIn(200);
     });
-    $("#button-name-structure-ok").on('click', function(){
+    $("#button-name-structure-ok").on('click', async function(){
+      newNameStructure = $("#name-structure-input").val();
       if($("#name-structure-input").val().length > 0){
-        nameStructure = $("#name-structure-input").val();
-        $("#name-structure-input").val('')
-        var arrayAllApex = $('div.apex-add');
-        arrayAllApex.each(function(index, element) {
-          var existingApex = apexArray.find(function(apex) {
-            return apex.ApexID === element.id;
+        try{
+          const response = await fetch(`http://localhost:3000/checkNameStructure`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nameStructure: newNameStructure, currentUsername: currentUsername})
           });
-          if (existingApex) {
-            existingApex.posX = $(element).offset().left;
-            existingApex.posY = $(element).offset().top;
-            existingApex.Figure = $(element).css('border-radius');
-            existingApex.Height = $(element).outerHeight();
-            existingApex.Width = $(element).outerWidth();
-            existingApex.Text = $(element).find('span').first().text();
-            existingApex.Color = $(element).css('border');
-            existingApex.Style = $(element).css('flex-direction');
-          } else {
-            var pushApex = {
-                ApexID: element.id,
-                posX: $(element).offset().left,
-                posY: $(element).offset().top,
-                Figure: $(element).css('border-radius'),
-                Height: $(element).outerHeight(),
-                Width: $(element).outerWidth(),
-                Text: $(element).find('span').first().text(),
-                Color: $(element).css('border'),
-                Style: $(element).css('flex-direction'),
-                Field: $(element).find('textarea').map(function() {
-                  return {
-                      Text: $(this).val()
+          if (response.ok) {
+            const { exists } = await response.json();
+            if (exists) {
+              $('#save-exists').fadeIn(200);
+            }
+            else{
+              nameStructure = $("#name-structure-input").val();
+              $("#name-structure-input").val('')
+              var arrayAllApex = $('div.apex-add');
+              arrayAllApex.each(function(index, element) {
+                var existingApex = apexArray.find(function(apex) {
+                  return apex.ApexID === element.id;
+                });
+                if (existingApex) {
+                  existingApex.posX = $(element).offset().left;
+                  existingApex.posY = $(element).offset().top;
+                  existingApex.Figure = $(element).css('border-radius');
+                  existingApex.Height = $(element).outerHeight();
+                  existingApex.Width = $(element).outerWidth();
+                  existingApex.Text = $(element).find('span').first().text();
+                  existingApex.Color = $(element).css('border');
+                  existingApex.Style = $(element).css('flex-direction');
+                } else {
+                  var pushApex = {
+                      ApexID: element.id,
+                      posX: $(element).offset().left,
+                      posY: $(element).offset().top,
+                      Figure: $(element).css('border-radius'),
+                      Height: $(element).outerHeight(),
+                      Width: $(element).outerWidth(),
+                      Text: $(element).find('span').first().text(),
+                      Color: $(element).css('border'),
+                      Style: $(element).css('flex-direction'),
+                      Field: $(element).find('textarea').map(function() {
+                        return {
+                            Text: $(this).val()
+                        };
+                    }).get()
                   };
-              }).get()
-            };
-            apexArray.push(pushApex);
+                  apexArray.push(pushApex);
+                }
+              });
+              apexArray.forEach(function(element, index) {
+                console.log("Element " + index + ": ", element);
+              });
+              $.ajax({
+                url: 'http://localhost:3000/some-route',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ linesMap: linesMap, apexArray: apexArray, currentUsername: currentUsername, nameStructure: nameStructure }),
+                success: function(response) {
+                  $('#save-successful').fadeIn(200);
+                  var li = $('<li>')
+                    .addClass('loadItem')
+                    .appendTo('.loadList');
+                  var div = $('<div>')
+                    .addClass('div-load-window');
+                  var text = $('<a>').text(nameStructure);
+                  div.append(text);
+                  li.append(div);
+                  console.log(response.message);
+                },
+                error: function(xhr, status, error) {
+                  console.error('Failed to save data:', error);
+                }
+              });               
+            }         
           }
-        });
-        apexArray.forEach(function(element, index) {
-          console.log("Element " + index + ": ", element);
-        });
-  
-
-        $.ajax({
-          url: 'http://localhost:3000/some-route',
-          method: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({ linesMap: linesMap, apexArray: apexArray, currentUsername: currentUsername, nameStructure: nameStructure }),
-          success: function(response) {
-            $('#save-successful').fadeIn(200);
-            var li = $('<li>')
-              .addClass('loadItem')
-              .appendTo('.loadList');
-            var div = $('<div>')
-              .addClass('div-load-window');
-            var text = $('<a>').text(nameStructure);
-            div.append(text);
-            li.append(div);
-            console.log(response.message);
-          },
-          error: function(xhr, status, error) {
-            console.error('Failed to save data:', error);
-          }
-        });        
+        }
+        catch(error){
+          console.error('Error when checking the structure:', error);
+        }       
       }
     });
     $("#button-name-structure-cancel").on('click', function(){
@@ -318,6 +337,83 @@ $(document).ready(function() {
     });
     $('#button-load-structure-cancel').on('click', function(){
       $('.load-structure').fadeOut(200);
+    });
+    $('#cancel-save').on('click', function(){
+      $('#save-exists').fadeOut(200);
+    });
+    $('#replace-save').on('click', async function(){
+      const structureName = $("#name-structure-input").val();;
+      try {
+        const response = await fetch('http://localhost:3000/deleteStructure', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username: currentUsername, structureName: structureName })
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data.message);
+          nameStructure = $("#name-structure-input").val();
+          $("#name-structure-input").val('')
+          var arrayAllApex = $('div.apex-add');
+          arrayAllApex.each(function(index, element) {
+            var existingApex = apexArray.find(function(apex) {
+              return apex.ApexID === element.id;
+            });
+            if (existingApex) {
+              existingApex.posX = $(element).offset().left;
+              existingApex.posY = $(element).offset().top;
+              existingApex.Figure = $(element).css('border-radius');
+              existingApex.Height = $(element).outerHeight();
+              existingApex.Width = $(element).outerWidth();
+              existingApex.Text = $(element).find('span').first().text();
+              existingApex.Color = $(element).css('border');
+              existingApex.Style = $(element).css('flex-direction');
+            } else {
+              var pushApex = {
+                  ApexID: element.id,
+                  posX: $(element).offset().left,
+                  posY: $(element).offset().top,
+                  Figure: $(element).css('border-radius'),
+                  Height: $(element).outerHeight(),
+                  Width: $(element).outerWidth(),
+                  Text: $(element).find('span').first().text(),
+                  Color: $(element).css('border'),
+                  Style: $(element).css('flex-direction'),
+                  Field: $(element).find('textarea').map(function() {
+                    return {
+                        Text: $(this).val()
+                    };
+                }).get()
+              };
+              apexArray.push(pushApex);
+            }
+          });
+          apexArray.forEach(function(element, index) {
+            console.log("Element " + index + ": ", element);
+          });
+          $.ajax({
+            url: 'http://localhost:3000/some-route',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ linesMap: linesMap, apexArray: apexArray, currentUsername: currentUsername, nameStructure: nameStructure }),
+            success: function(response) {
+              $('#save-exists').fadeOut(200);
+              $('#save-successful').fadeIn(200);
+              console.log(response.message);
+            },
+            error: function(xhr, status, error) {
+              console.error('Failed to save data:', error);
+            }
+          });
+        } else {
+          console.error('Failed to delete structure:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Failed to delete structure:', error);
+      }      
     });
     $(document).on('click', '.div-load-window', function(){
       if (prevChangeLoad != null) {

@@ -105,6 +105,52 @@ app.post('/some-route', async (req, res) => {
   }
 });
 
+app.post('/checkNameStructure', async (req, res) => {
+  const {nameStructure, currentUsername} = req.body;
+  try {
+    const user = await User.findOne({ username: currentUsername });
+    console.log("Current username: " + currentUsername);
+    if (user) {
+      const existingStructure = user.Structures.find(structure => structure.Name === nameStructure);
+      if (existingStructure) {
+        console.log('A structure with this name already exists');
+        return res.status(200).json({ message: 'A structure with this name already exists', exists: true});
+      } else {
+        return res.status(200).json({ message: 'A structure with this name does not exist', exists: false});
+      }
+    } else {
+      console.log('User not found');
+      return res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error when checking the structure: ', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/deleteStructure', async (req, res) => {
+  const { username, structureName } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const structureIndex = user.Structures.findIndex(structure => structure.Name === structureName);
+    if (structureIndex === -1) {
+      return res.status(404).json({ message: 'Structure not found' });
+    }
+
+    user.Structures.splice(structureIndex, 1);
+    await user.save();
+
+    return res.status(200).json({ message: 'Structure deleted successfully' });
+  } catch (error) {
+    console.error('Failed to delete structure:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.get('/getStructureNames/:username', async (req, res) => {
   const { username } = req.params;
   try {
