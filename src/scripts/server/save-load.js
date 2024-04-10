@@ -90,7 +90,13 @@ $(document).ready(function() {
                   var div = $('<div>')
                     .addClass('div-load-window');
                   var text = $('<a>').text(nameStructure);
+                  var button = $('<button>')
+                    .addClass('load-delete-button')
+                  var icon = $('<i>')
+                    .addClass('fa fa-trash');
+                  button.append(icon);      
                   div.append(text);
+                  div.append(button);
                   li.append(div);
                   console.log(response.message);
                 },
@@ -422,5 +428,28 @@ $(document).ready(function() {
       $(this).find('a').css('color', '#30d5c8');
       prevChangeLoad = $(this);
       loadStructureName = $(this).find('a').text();
-  });
+    });
+    $(document).on('click', '.load-delete-button', async function(){
+      const structureName = $(this).closest('li').find('a').text();
+      console.log(structureName);
+      try {
+        const response = await fetch('http://localhost:3000/deleteStructure', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username: currentUsername, structureName: structureName })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data.message);
+          $(this).closest('li').remove();
+        } else {
+          console.error('Failed to delete structure:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Failed to delete structure:', error);
+      }
+    });
 });

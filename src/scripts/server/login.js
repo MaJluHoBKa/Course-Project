@@ -96,7 +96,13 @@ $(document).ready(function() {
                             var div = $('<div>')
                                 .addClass('div-load-window');
                             var text = $('<a>').text(structureName);
+                            var button = $('<button>')
+                                .addClass('load-delete-button')
+                            var icon = $('<i>')
+                                .addClass('fa fa-trash');
+                            button.append(icon);                            
                             div.append(text);
+                            div.append(button);
                             li.append(div);                         
                         });
                     } else {

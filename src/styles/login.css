@@ -763,6 +763,25 @@
     cursor: default;
 }
 
+.load-delete-button{
+    position: absolute;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    border: 0;
+    background-color: #000000;
+    transition: all 0.3s ease-out;
+}
+.load-delete-button i{
+    color: #b4b4b4;
+    transition: all 0.3s ease-out;
+}
+.load-delete-button:hover i{
+    color: #30d5c8;
+}
+
+
 #replace-save{
     width: 75px;
     left: 15%;
